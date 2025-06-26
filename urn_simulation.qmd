@@ -1,0 +1,5 @@
+---
+title: "Proportions of red beads"
+format: html
+---
+
