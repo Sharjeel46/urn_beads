@@ -11,8 +11,7 @@ library(tidyverse)
 library(tidymodels)
 library(broom)
 
-# Estimating proportions is a common objective in statistics, particularly when working with categorical data. In this case, we explore the proportion of red beads by simulating an urn containing 1,000 beads.
-We draw a sample of 50 beads to estimate how many in the urn are red. But if the beads were changed after our sample, our estimate could be wrong.We draw a sample of 50 beads from an urn containing only red and white beads to estimate the proportion that are red. If the contents of the urn change after our sample, our estimate may no longer be accurate. We model each bead's color as a Bernoulli trial with an unknown probability of being red.
+ 
 
 ```
 
@@ -33,3 +32,30 @@ Y = f(X_1, X_2, \ldots, X_k) + \varepsilon
 #| cache: true
 $$\widehat{\text{logit}(P(\text{color} = \text{red}))} = -0.66$$
 ```
+
+
+
+```{r}
+library(tidyverse)
+library(ggeffects)  # For ggpredict or plot_predictions
+library(marginaleffects)
+# Example: logistic regression
+fit_color <- glm(red ~ 1, data = bead_data, family = binomial)
+
+# Generate predictions
+pred <- ggpredict(fit_color, terms = "1")
+
+# Plot with titles
+plot(pred) +
+  labs(
+    title = "Estimated Percentage of Red Beads in the Urn",
+    subtitle = "Based on predictions from a logistic regression using shovel samples",
+    y = "Estimated Percentage of Red Beads",
+    x = NULL
+  ) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
+  theme_minimal(base_size = 14)
+
+```
+Estimating proportions is a common objective in statistics, particularly when working with categorical data. In this case, we explore the proportion of red beads by simulating an urn containing 1,000 beads.
+We draw a sample of 50 beads to estimate how many in the urn are red. But if the beads were changed after our sample, our estimate could be wrong.We draw a sample of 50 beads from an urn containing only red and white beads to estimate the proportion that are red. If the contents of the urn change after our sample, our estimate may no longer be accurate. We model each bead's color as a Bernoulli trial with an unknown probability of being red.The world is always more uncertain than our models would have us believe.
