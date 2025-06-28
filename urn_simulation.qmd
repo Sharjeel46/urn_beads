@@ -1,5 +1,14 @@
 ---
 title: "Proportions of red beads"
 format: html
+execute: 
+  echo: false
 ---
 
+
+```{r}
+library(tidyverse)
+#| message: false
+Estimating proportions is a common objective in statistics, particularly when working with categorical data. In this case, we explore the proportion of red beads by simulating an urn containing 1,000 beads.
+
+```
